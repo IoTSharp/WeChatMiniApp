@@ -1,17 +1,17 @@
 <template>
   <view class="device">
-    <view>设备管理</view>
+    <List />
   </view>
 </template>
 
 <script>
 import './index.scss'
-import Counter from '../../components/Counter.vue'
+import List from './components/List'
 
 export default {
   name: 'Index',
   components: {
-    Counter
+    List
   }
 }
 </script>
