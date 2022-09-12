@@ -8,7 +8,7 @@ interface ApiResult<T> {
   data: T;
 }
 
-const baseURL = 'http://139.9.232.10:2927/'
+const baseURL = 'https://cloud.iotsharp.net/'
 
 const instance = axios.create({
   timeout: 30 * 1000,

@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/",
   "projectname": "iot-sharp-wechat",
   "description": "IoTSharp 小程序",
-  "appid": "wxee4a324db3ddf839",
+  "appid": "wxd21da5b7dfbf8d56",
   "setting": {
     "urlCheck": true,
     "es6": false,
@@ -29,5 +29,6 @@
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "simulatorPluginLibVersion": {}
 }
