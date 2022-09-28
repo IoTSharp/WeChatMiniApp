@@ -11,7 +11,16 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: ['taro-plugin-pinia'],
+  plugins: ['taro-plugin-pinia', ['@tarojs/plugin-framework-vue3', {
+    vueLoaderOption: {
+      compilerOptions: {
+        isCustomElement: tag => tag.includes("van-"),
+        whitespace: 'preserve'
+        // ...
+      },
+      reactivityTransform: true  // 开启vue3响应性语法糖
+    }
+  }]],
   defineConstants: {
   },
   alias: {
