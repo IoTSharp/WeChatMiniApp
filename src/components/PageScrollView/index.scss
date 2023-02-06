@@ -1,0 +1,33 @@
+.athena-page-scroll-view-container {
+  visibility: hidden;
+  &.athena-calcLayout {
+    visibility: visible;
+  }
+  .athena-ceiled {
+    position: sticky;
+    // top: -1rpx;
+    top: 1px;
+    z-index: 100;
+  }
+
+  .athena-scroll-list-bottom {
+    padding: 20px 0;
+    color: #ccc;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .athena-empty {
+    padding-top: 50px;
+    text-align: center;
+    .athena-empty-image {
+      width: 300px;
+      height: 300px;
+    }
+    .athena-empty-text {
+      margin-top: 24px;
+      color: #999999;
+      font-size: 32px;
+    }
+  }
+}

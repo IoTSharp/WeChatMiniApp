@@ -1,0 +1,43 @@
+.userInfoContainer {
+  padding: 130px 32px 100px;
+  background-image: url('https://yichang-fronted-public.oss-cn-hangzhou.aliyuncs.com/imgs/bg_head_03.jpg');
+  background-size: 100% 100%;
+  color: #ffffff;
+  line-height: 60px;
+  .title {
+    font-size: 34px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 24px;
+    margin-bottom: 44px;
+  }
+  .user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .userInfo {
+      display: flex;
+      align-items: center;
+      image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.8);
+      }
+      .content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 20px;
+        font-size: 34px;
+      }
+      .username {
+        margin-bottom: 4px;
+        font-size: 44px;
+      }
+      .description {
+        font-size: 24px;
+      }
+    }
+  }
+}
