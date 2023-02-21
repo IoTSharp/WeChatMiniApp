@@ -1,11 +1,8 @@
-import { Component, PropsWithChildren } from 'react';
-import Taro from '@tarojs/taro';
-import { Provider } from 'mobx-react';
+import { Component, PropsWithChildren } from "react";
+import Taro from "@tarojs/taro";
+import { Provider } from "mobx-react";
 
-import './app.scss';
-
-// 启动埋点
-require('./utils/tdweapp.js');
+import "./app.scss";
 
 const store = {};
 
@@ -26,8 +23,8 @@ class App extends Component<PropsWithChildren> {
       updateManager.onUpdateReady(() => {
         // eslint-disable-next-line no-undef
         Taro.showModal({
-          title: '更新提示',
-          content: '新版本已经准备好，是否重启应用？',
+          title: "更新提示",
+          content: "新版本已经准备好，是否重启应用？",
           success(res) {
             if (res.confirm) {
               // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
@@ -39,7 +36,7 @@ class App extends Component<PropsWithChildren> {
 
       updateManager.onUpdateFailed(() => {
         Taro.showToast({
-          title: '更新失败，请稍后再试！',
+          title: "更新失败，请稍后再试！",
         });
       });
     }

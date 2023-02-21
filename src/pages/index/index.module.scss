@@ -2,29 +2,51 @@
   min-height: 100vh;
   background-color: #ffffff;
   display: flex;
-  align-items: center;
-  flex-direction: column;
   justify-content: center;
-  image {
-    width: 208px;
-    height: 208px;
-    border-radius: 50%;
-  }
-  .title {
-    margin-bottom: 280px;
-    margin-top: 30px;
-    image {
-      width: 281px;
-      height: 94px;
-      border-radius: 0;
+  flex-direction: column;
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 70px;
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+    }
+    .text {
+      width: 320px;
+      height: 64px;
     }
   }
+  .form {
+    width: 600px;
+    margin: 0 auto;
+  }
+  .description {
+    margin-top: 6px;
+    margin-bottom: 44px;
+    width: 600px;
+    font-size: 24px;
+    color: #0d0d0d;
+    letter-spacing: 0;
+  }
   :global {
-    .nut-button--normal {
-      background-color: $primary-color;
-      padding: 12px 76px;
-      box-shadow: 0 4px 24px 0 $box-shadow-color-start, 0 24px 24px -24px $box-shadow-color-end;
-      border-radius: 24px;
+    .nut-input {
+      background: #f0f0f0;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      padding: 16px 14px;
+    }
+    .nut-icon {
+      margin-right: 6px;
+    }
+    .nut-button--primary {
+      background: #6e65fc !important;
+      padding: 14px 135px;
+      margin: 0 auto;
+      box-shadow: 0 2px 17px -3px rgba(83, 71, 255, 0.46);
+      border-radius: 8px;
       color: #ffffff;
     }
   }
