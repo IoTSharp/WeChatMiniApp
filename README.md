@@ -1,6 +1,6 @@
 ### 项目介绍
 
-货代社交小程序，基于 **`taro3.5.10 + mobx + ts`**
+基于 **`taro3.5.10 + mobx + ts`**
 
 ui 组件库采用：<a href="https://nutui.jd.com/react/#/">nutui-react</a>
 
@@ -26,18 +26,6 @@ pnpm run genicon
 ```
 
 注意在组件内部自动加了 name 前缀，因此在书写时**`前缀`**不用再加 icon
-
-### openapi
-
-运行
-
-```shell
-pnpm run openapi
-```
-
-会将接口生成到 src/\_openapi 目录，注意该目录在 gitignore 中，因此我们需要将对应的接口单独复制出来，当然也可以自己手写不用跑 openapi
-
-如果需要指定 openapi 地址，则修改 package.json >>>> scripts >>>> openapi 命令中的 --serverPath 参数
 
 ### 接口请求
 
