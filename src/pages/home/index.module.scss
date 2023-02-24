@@ -1,6 +1,7 @@
 .homeContainer {
   width: 100%;
   min-height: 100vh;
+  background-color: #f7f7fa;
   .banner {
     padding: 130px 44px 24px;
     background-size: 100% 100%;
@@ -44,6 +45,64 @@
           font-size: 40px;
           color: #000000;
         }
+      }
+    }
+  }
+  .assets {
+    margin: 86px 48px;
+    background: #ffffff;
+    border-radius: 24px;
+    padding-top: 30px;
+    padding-bottom: 8px;
+    .titleBar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 40px;
+      margin-bottom: 30px;
+      .left {
+        display: flex;
+        align-items: center;
+        .line {
+          margin-left: -4px;
+          background: #6e65fc;
+          border-radius: 4px;
+          width: 8px;
+          height: 32px;
+          margin-right: 20px;
+        }
+        .icon {
+          width: 40px;
+          height: 38px;
+        }
+        .title {
+          font-size: 28px;
+          color: #6e65fc;
+          margin-left: 12px;
+        }
+      }
+      .right {
+        font-size: 24px;
+        color: #525252;
+        cursor: pointer;
+      }
+    }
+    :global {
+      .nut-cell {
+        padding: 20px;
+      }
+      .nut-cell__title {
+        font-size: 14px !important;
+        color: #000000 !important;
+      }
+      .nut-icon {
+        width: 18px !important;
+        height: 20px !important;
+        margin: 0 18px 0 0 !important;
+      }
+      .nut-cell-value {
+        font-size: 14px !important;
+        color: #717171 !important;
       }
     }
   }

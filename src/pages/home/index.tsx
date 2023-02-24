@@ -1,5 +1,5 @@
 import { Image, View } from "@tarojs/components";
-import { Row, Col } from "@nutui/nutui-react-taro";
+import { Row, Col, CellGroup, Cell } from "@nutui/nutui-react-taro";
 import { FC } from "react";
 import styles from "./index.module.scss";
 
@@ -64,6 +64,41 @@ const Home: FC<IHomeProps> = ({}) => {
             );
           })}
         </Row>
+      </View>
+      <View className={styles.assets}>
+        <View className={styles.titleBar}>
+          <View className={styles.left}>
+            <View className={styles.line} />
+            <Image
+              className={styles.icon}
+              src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/assets.svg"
+            />
+            <View className={styles.title}>资产</View>
+          </View>
+          <View className={styles.right}>查看更多</View>
+        </View>
+        <CellGroup>
+          <Cell
+            iconSlot={
+              <Image
+                className="nut-icon"
+                src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/things.svg"
+              />
+            }
+            title="我的客厅"
+            desc="8台设备"
+          />
+          <Cell
+            iconSlot={
+              <Image
+                className="nut-icon"
+                src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/things.svg"
+              />
+            }
+            title="我的设备"
+            desc="13台设备"
+          />
+        </CellGroup>
       </View>
     </View>
   );
