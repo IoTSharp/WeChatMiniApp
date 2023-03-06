@@ -1,67 +1,34 @@
 import { View, Image } from "@tarojs/components";
-import { FC, useEffect, useState } from "react";
-import Taro from "@tarojs/taro";
+import { FC, useState } from "react";
 import { Input, Button } from "@nutui/nutui-react-taro";
-import { Session, UserInfo, Login } from "@/config/storageKey";
+import Taro, { showToast } from "@tarojs/taro";
+import { Token } from "@/config/storageKey";
 import {
-  getPersonalInfoByOpenId,
-  createSession,
-  WechatSessionDTO,
+  signIn,
 } from "./api";
 import styles from "./index.module.scss";
 
 export interface IAuthorizeProps {}
 const Authorize: FC<IAuthorizeProps> = ({}) => {
-  const [state, setState] = useState({
-    clear: "",
-  });
-  useEffect(() => {
-    Taro.login({
-      success: (res) => {
-        if (res.code) {
-          // 创建会话获取openId/unionId
-          createSession({
-            code: res.code,
-          }).then(async (results: WechatSessionDTO) => {
-            const { openId } = results;
-            await Taro.setStorage({
-              key: Session,
-              data: results,
-            });
-            // 获取用户信息
-            getPersonalInfoByOpenId(
-              {
-                openId,
-              },
-              {
-                hideErrorToast: true,
-              }
-            )
-              .then(async (result) => {
-                await Taro.setStorage({
-                  key: UserInfo,
-                  data: result,
-                });
-                await Taro.setStorage({
-                  key: Login,
-                  data: true,
-                });
-                Taro.redirectTo({ url: "/pages/list/index" });
-              })
-              .catch(async (error) => {
-                // 用户信息不存在开启注册操作
-                await Taro.setStorage({
-                  key: Login,
-                  data: false,
-                });
-              });
+  const [userName, setUserName] = useState('iotmaster@iotsharp.net')
+  const [password, setPassword] = useState('')
+  const handleLogin = () => {
+    if (!userName) return showToast({ title: '请输入用户名', icon: 'none', duration: 2000 });
+    if (!password) return showToast({ title: '请输入密码', icon: 'none', duration: 2000 });
+    signIn({ password, userName, code: "1234", })
+      .then(async (res: any) => {
+        console.log(res)
+        if (res && res.code === 10000) {
+          await Taro.setStorage({
+            key: Token,
+            data: res.data.token.access_token,
           });
+          Taro.navigateTo({ url: '/pages/home/index' });
         } else {
-          console.log("登录失败！" + res.errMsg);
+          showToast({ title: '用户名不存在或者密码错误', icon: 'none', duration: 2000 });
         }
-      },
-    });
-  }, []);
+      })
+  }
   return (
     <View className={styles.authorizeContainer}>
       <View className={styles.logo}>
@@ -81,6 +48,10 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
             placeholder="请输入用户名"
             leftIconSize="15"
             leftIcon="my2"
+            defaultValue={userName}
+            change={(val) => {
+              setUserName(val)
+            }}
           />
         </View>
         <View className={styles.password}>
@@ -89,13 +60,18 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
             leftIconSize="15"
             placeholder="请输入密码"
             leftIcon="eye"
+            type="password"
+            defaultValue={password}
+            change={(val) => {
+              setPassword(val)
+            }}
           />
         </View>
         <View className={styles.description}>
           登录即同意《IotSharp用户协议》和《IotSharp隐私政策》
           并使用微信授权登录
         </View>
-        <Button type="primary">登录</Button>
+        <Button type="primary" onClick={handleLogin}>登录</Button>
       </View>
     </View>
   );

@@ -36,7 +36,7 @@ const defaultExtraOptions = {
 type restOptions = Omit<Taro.request.Option, 'url' | 'data' | 'method'> & IExtraReqOptions;
 
 export const EXCEPTION_CODE = {
-  SUCCESS_CODE: '2002000000', // 成功
+  SUCCESS_CODE: '10000', // 成功
   REFRESH_CODE: '4001000005', // 需要刷新token
 };
 
@@ -107,10 +107,11 @@ export const request = (url: string, options?: Omit<Taro.request.Option & IExtra
 
   return new Promise((resolve, reject) => {
     req(_opts).then(async (result) => {
-      const { code, message, data } = result.data || {};
+      console.warn(result)
+      const { code, msg, data } = result.data || {};
       //  业务异常
       if (`${code}` !== EXCEPTION_CODE.SUCCESS_CODE) {
-        !hideErrorToast && message && showToast({ title: message, icon: 'none', duration: 2000 });
+        !hideErrorToast && msg && showToast({ title: msg, icon: 'none', duration: 2000 });
         reject(data);
       }
       // 刷新token
