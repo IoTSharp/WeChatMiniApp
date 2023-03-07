@@ -18,12 +18,19 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
     signIn({ password, userName, code: "1234", })
       .then(async (res: any) => {
         console.log(res)
-        if (res && res.code === 10000) {
+        // @ts-ignore
+        const {
+          code,
+          token: {
+            access_token
+          }
+        } = res;
+        if (code === 10000) {
           await Taro.setStorage({
             key: Token,
-            data: res.data.token.access_token,
+            data: access_token,
           });
-          Taro.navigateTo({ url: '/pages/home/index' });
+          Taro.switchTab({ url: '/pages/home/index' });
         } else {
           showToast({ title: '用户名不存在或者密码错误', icon: 'none', duration: 2000 });
         }
@@ -59,7 +66,7 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
             label=""
             leftIconSize="15"
             placeholder="请输入密码"
-            leftIcon="eye"
+            leftIcon="marshalling"
             type="password"
             defaultValue={password}
             change={(val) => {
