@@ -2,40 +2,42 @@ import { View, Image } from "@tarojs/components";
 import { FC, useState } from "react";
 import { Input, Button } from "@nutui/nutui-react-taro";
 import Taro, { showToast } from "@tarojs/taro";
-import { Token } from "@/config/storageKey";
-import {
-  signIn,
-} from "./api";
+import { AUTH_TOKEN } from "@/config/sessionKey";
+import { signIn } from "./api";
 import styles from "./index.module.scss";
 
 export interface IAuthorizeProps {}
 const Authorize: FC<IAuthorizeProps> = ({}) => {
-  const [userName, setUserName] = useState('iotmaster@iotsharp.net')
-  const [password, setPassword] = useState('')
+  const [userName, setUserName] = useState("iotmaster@iotsharp.net");
+  const [password, setPassword] = useState("");
   const handleLogin = () => {
-    if (!userName) return showToast({ title: '请输入用户名', icon: 'none', duration: 2000 });
-    if (!password) return showToast({ title: '请输入密码', icon: 'none', duration: 2000 });
-    signIn({ password, userName, code: "1234", })
-      .then(async (res: any) => {
-        console.log(res)
-        // @ts-ignore
-        const {
-          code,
-          token: {
-            access_token
-          }
-        } = res;
-        if (code === 10000) {
-          await Taro.setStorage({
-            key: Token,
-            data: access_token,
-          });
-          Taro.switchTab({ url: '/pages/home/index' });
-        } else {
-          showToast({ title: '用户名不存在或者密码错误', icon: 'none', duration: 2000 });
-        }
-      })
-  }
+    if (!userName)
+      return showToast({ title: "请输入用户名", icon: "none", duration: 2000 });
+    if (!password)
+      return showToast({ title: "请输入密码", icon: "none", duration: 2000 });
+    signIn({ password, userName, code: "1234" }).then(async (res: any) => {
+      // @ts-ignore
+      const {
+        code,
+        token: { access_token },
+      } = res;
+      if (code === 10000) {
+        await Taro.setStorage({
+          key: AUTH_TOKEN,
+          data: {
+            accessToken: access_token,
+          },
+        });
+        Taro.switchTab({ url: "/pages/home/index" });
+      } else {
+        showToast({
+          title: "用户名不存在或者密码错误",
+          icon: "none",
+          duration: 2000,
+        });
+      }
+    });
+  };
   return (
     <View className={styles.authorizeContainer}>
       <View className={styles.logo}>
@@ -57,7 +59,7 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
             leftIcon="my2"
             defaultValue={userName}
             change={(val) => {
-              setUserName(val)
+              setUserName(val);
             }}
           />
         </View>
@@ -70,7 +72,7 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
             type="password"
             defaultValue={password}
             change={(val) => {
-              setPassword(val)
+              setPassword(val);
             }}
           />
         </View>
@@ -78,7 +80,9 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
           登录即同意《IotSharp用户协议》和《IotSharp隐私政策》
           并使用微信授权登录
         </View>
-        <Button type="primary" onClick={handleLogin}>登录</Button>
+        <Button type="primary" onClick={handleLogin}>
+          登录
+        </Button>
       </View>
     </View>
   );
