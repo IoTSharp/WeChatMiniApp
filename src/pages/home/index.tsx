@@ -36,22 +36,22 @@ const Home: FC<IHomeProps> = ({}) => {
     {
       label: "设备总数",
       value: info?.deviceCount ?? 0,
-      color: "#6e65fc",
+      color: "rgb(73, 69, 255)",
     },
     {
       label: "在线设备",
       value: info?.onlineDeviceCount ?? 0,
-      color: "#6DD400",
+      color: "rgb(16, 185, 129)",
+    },
+    {
+      label: "今日属性",
+      value: info?.attributesDataCount ?? 0,
+      color: "rgb(0, 39, 102)",
     },
     {
       label: "今日事件",
       value: info?.eventCount ?? 0,
-      color: "#6e65fc",
-    },
-    {
-      label: "告警设备",
-      value: info?.alarmsCount ?? 0,
-      color: "#FABB18",
+      color: "rgb(0, 80, 179)",
     },
   ];
   return (
@@ -89,39 +89,50 @@ const Home: FC<IHomeProps> = ({}) => {
             </Row>
           </View>
           <View className={styles.assets}>
-            <View className={styles.titleBar}>
-              <View className={styles.left}>
-                <View className={styles.line} />
-                <Image
-                  className={styles.icon}
-                  src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/assets.svg"
+            <View className={styles.box}>
+              <CellGroup>
+                <Cell
+                  iconSlot={
+                    <Image
+                      className="nut-icon"
+                      src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/things.svg"
+                    />
+                  }
+                  title="告警设备"
+                  desc={String(info?.alarmsCount) ?? '0'}
                 />
-                <View className={styles.title}>资产</View>
-              </View>
-              <View className={styles.right}>查看更多</View>
+                <Cell
+                  iconSlot={
+                    <Image
+                      className="nut-icon"
+                      src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/things.svg"
+                    />
+                  }
+                  title="用户"
+                  desc={String(info?.userCount) ?? '0'}
+                />
+                <Cell
+                  iconSlot={
+                    <Image
+                      className="nut-icon"
+                      src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/things.svg"
+                    />
+                  }
+                  title="产品"
+                  desc={String(info?.produceCount) ?? '0'}
+                />
+                <Cell
+                  iconSlot={
+                    <Image
+                      className="nut-icon"
+                      src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/things.svg"
+                    />
+                  }
+                  title="规则"
+                  desc={String(info?.rulesCount) ?? '0'}
+                />
+              </CellGroup>
             </View>
-            <CellGroup>
-              <Cell
-                iconSlot={
-                  <Image
-                    className="nut-icon"
-                    src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/things.svg"
-                  />
-                }
-                title="我的客厅"
-                desc="8台设备"
-              />
-              <Cell
-                iconSlot={
-                  <Image
-                    className="nut-icon"
-                    src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/things.svg"
-                  />
-                }
-                title="我的设备"
-                desc="13台设备"
-              />
-            </CellGroup>
           </View>
         </>
       )}

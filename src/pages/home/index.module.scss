@@ -49,11 +49,11 @@
     }
   }
   .assets {
-    margin: 86px 48px;
-    background: #ffffff;
-    border-radius: 24px;
-    padding-top: 30px;
-    padding-bottom: 8px;
+    padding: 48px 48px;
+    .box {
+      background: #ffffff;
+      border-radius: 24px;
+    }
     .titleBar {
       display: flex;
       align-items: center;
