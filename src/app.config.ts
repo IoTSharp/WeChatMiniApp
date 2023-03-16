@@ -7,6 +7,8 @@ export default defineAppConfig({
     "pages/home/index",
     "pages/list/index",
     "pages/user/index",
+    "pages/userInfo/index",
+    "pages/aboutUs/index"
   ],
   window: {
     backgroundTextStyle: "light",

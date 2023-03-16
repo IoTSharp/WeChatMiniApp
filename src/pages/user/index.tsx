@@ -8,6 +8,16 @@ import styles from "./index.module.scss";
 export interface IUserProps {}
 const User: FC<IUserProps> = ({}) => {
   const userInfo = Taro.getStorageSync(USER_INFO);
+  const handleRedirectToUserPage = () => {
+    Taro.navigateTo({
+      url: '/pages/userInfo/index',
+    });
+  }
+  const handleRedirectToAboutUsPage = () => {
+    Taro.navigateTo({
+      url: '/pages/aboutUs/index',
+    });
+  }
   return (
     <View className={styles.userContainer}>
       <View className={styles.user}>
@@ -20,10 +30,9 @@ const User: FC<IUserProps> = ({}) => {
       </View>
       <View className={styles.menu}>
         <CellGroup>
-          <Cell isLink title="用户信息" desc="" />
+          <Cell isLink title="用户信息" desc="" onClick={handleRedirectToUserPage} />
           <Cell isLink title="密码修改" desc="" />
-          <Cell isLink title="关于我们" desc="" />
-          <Cell isLink title="退出登录" desc="" />
+          <Cell isLink title="关于我们" desc="" onClick={handleRedirectToAboutUsPage} />
         </CellGroup>
       </View>
     </View>
