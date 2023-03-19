@@ -14,8 +14,10 @@ const AboutUs: FC<IAboutUsProps> = ({}) => {
         />
       </View>
       <View className={styles.description}>连接物理设备与数字世界</View>
-      <View className={styles.version}>IoTSharp V 1.0.0</View>
-      <View className={styles.copyright}>© 2018 - 2023 The IoTSharp Authors. All rights reserved.</View>
+      <View className={styles.version}>IoTSharp V1.0.0</View>
+      <View className={styles.copyright}>
+        © 2023 The IoTSharp Authors. All rights reserved.
+      </View>
     </View>
   );
 };

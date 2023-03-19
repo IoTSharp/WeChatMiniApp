@@ -3,12 +3,12 @@ import { useGlobalIconFont } from "./components/Iconfont/helper";
 
 export default defineAppConfig({
   pages: [
+    "pages/userInfo/index",
+    "pages/aboutUs/index",
     "pages/index/index",
     "pages/home/index",
     "pages/list/index",
     "pages/user/index",
-    "pages/userInfo/index",
-    "pages/aboutUs/index"
   ],
   window: {
     backgroundTextStyle: "light",
