@@ -1,21 +1,21 @@
-import Taro, { useDidShow } from '@tarojs/taro';
-import { View } from '@tarojs/components';
-import { FC, useState } from 'react';
-import {Avatar, Button, Cell, CellGroup} from "@nutui/nutui-react-taro";
-import { getUserInfo } from './api';
-import styles from './index.module.scss';
+import Taro, { useDidShow } from "@tarojs/taro";
+import { View } from "@tarojs/components";
+import { FC, useState } from "react";
+import { Avatar, Button, Cell, CellGroup } from "@nutui/nutui-react-taro";
+import { getUserInfo, signOut } from "./api";
+import styles from "./index.module.scss";
 
 export interface IUserInfoProps {}
 
 const UserInfoPage: FC<IUserInfoProps> = ({}) => {
   const [loading, setLoading] = useState(true);
   const initUserInfo = {
-    name: '',
-    avatar: '',
-    email: '',
-    phone: '',
-    wechatNo: '',
-    personalId: '',
+    name: "",
+    avatar: "",
+    email: "",
+    phone: "",
+    wechatNo: "",
+    personalId: "",
   };
   const [userInfo, setUserInfo] = useState({
     ...initUserInfo,
@@ -23,17 +23,21 @@ const UserInfoPage: FC<IUserInfoProps> = ({}) => {
   const fetchData = async () => {
     setLoading(true);
     Taro.showLoading({
-      title: '加载中',
+      title: "加载中",
     });
-    const res: any = await getUserInfo() || {};
+    const res: any = (await getUserInfo()) || {};
     if (res) {
       console.log(res);
     }
     Taro.hideLoading();
     setLoading(false);
   };
-  const handleLoginOut = () => {
-
+  const handleLoginOut = async () => {
+    const res = await signOut();
+    if (res) {
+      await Taro.clearStorageSync();
+      Taro.redirectTo({ url: "/pages/index/index" });
+    }
   };
   useDidShow(() => {
     fetchData();
@@ -46,22 +50,15 @@ const UserInfoPage: FC<IUserInfoProps> = ({}) => {
           title="头像"
           linkSlot={<Avatar size="normal" icon={userInfo?.avatar} />}
         />
-        <Cell
-          title="用户名"
-          desc={userInfo?.name}
-        />
-        <Cell
-          title="邮箱"
-          desc={userInfo?.wechatNo}
-        />
-        <Cell
-          title="联系电话"
-          desc={userInfo?.phone}
-        />
+        <Cell title="用户名" desc={userInfo?.name} />
+        <Cell title="邮箱" desc={userInfo?.wechatNo} />
+        <Cell title="联系电话" desc={userInfo?.phone} />
       </CellGroup>
-      <Button type="primary" onClick={handleLoginOut}>
-        退出登录
-      </Button>
+      <View className={styles.btnContainer}>
+        <Button type="primary" onClick={handleLoginOut}>
+          退出登录
+        </Button>
+      </View>
     </View>
   );
 };

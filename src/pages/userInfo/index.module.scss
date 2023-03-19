@@ -4,8 +4,13 @@
   min-height: calc(100vh - 96px);
   display: flex;
   flex-direction: column;
+  position: relative;
   .title {
     display: block;
+  }
+  .btnContainer {
+    position: absolute;
+    bottom: 40px;
   }
   :global {
     .nut-cell {
