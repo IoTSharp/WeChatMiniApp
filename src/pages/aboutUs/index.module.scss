@@ -1,1 +1,42 @@
+.aboutUsContainer {
+  min-height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .version {
+    text-align: center;
+    font-size: 28px !important;
+    color: #717171 !important;
+  }
+  .description {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px !important;
+  }
+  .copyright {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+    font-size: 24px !important;
+    color: #717171 !important;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    margin-top: 140px;
+    .icon {
+      width: 200px;
+      height: 200px;
+      margin-right: 20px;
+    }
 
+    .text {
+      width: 320px;
+      height: 64px;
+    }
+  }
+}
