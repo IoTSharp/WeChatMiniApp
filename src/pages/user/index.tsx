@@ -18,6 +18,11 @@ const User: FC<IUserProps> = ({}) => {
       url: '/pages/aboutUs/index',
     });
   }
+  const handleRedirectToPasswordPage = () => {
+    Taro.navigateTo({
+      url: '/pages/password/index',
+    });
+  }
   return (
     <View className={styles.userContainer}>
       <View className={styles.user}>
@@ -31,7 +36,7 @@ const User: FC<IUserProps> = ({}) => {
       <View className={styles.menu}>
         <CellGroup>
           <Cell isLink title="用户信息" desc="" onClick={handleRedirectToUserPage} />
-          <Cell isLink title="密码修改" desc="" />
+          <Cell isLink title="密码修改" desc="" onClick={handleRedirectToPasswordPage} />
           <Cell isLink title="关于我们" desc="" onClick={handleRedirectToAboutUsPage} />
         </CellGroup>
       </View>

@@ -3,9 +3,10 @@ import { useGlobalIconFont } from "./components/Iconfont/helper";
 
 export default defineAppConfig({
   pages: [
+    "pages/index/index",
+    "pages/password/index",
     "pages/userInfo/index",
     "pages/aboutUs/index",
-    "pages/index/index",
     "pages/home/index",
     "pages/list/index",
     "pages/user/index",
