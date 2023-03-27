@@ -9,7 +9,7 @@ import styles from "./index.module.scss";
 export interface IAuthorizeProps {}
 const Authorize: FC<IAuthorizeProps> = ({}) => {
   const [userName, setUserName] = useState("iotmaster@iotsharp.net");
-  const [password, setPassword] = useState("285220Myh,,.");
+  const [password, setPassword] = useState("");
   const handleLogin = () => {
     if (!userName)
       return showToast({ title: "请输入用户名", icon: "none", duration: 2000 });
@@ -86,7 +86,7 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
           />
         </View>
         <View className={styles.description}>
-          登录即同意《IotSharp用户协议》和《IotSharp隐私政策》
+          登录即同意《IoTSharp用户协议》和《IoTSharp隐私政策》
           并使用微信授权登录
         </View>
         <Button type="primary" onClick={handleLogin}>
