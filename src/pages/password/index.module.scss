@@ -1,0 +1,29 @@
+.passwordContainer {
+  min-height: calc(100vh - 96px);
+  background-color: #f7f7fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px;
+  .form {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    margin: 0 auto;
+    padding-bottom: 44px;
+    padding-top: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  :global {
+    .nut-button--primary {
+      background: #6e65fc !important;
+      padding: 14px 135px;
+      margin: 22px auto 0;
+      box-shadow: 0 2px 17px -3px rgba(83, 71, 255, 0.46);
+      border-radius: 8px;
+      color: #ffffff;
+    }
+  }
+}

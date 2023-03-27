@@ -1,41 +1,46 @@
-export default {
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useGlobalIconFont } from "./components/Iconfont/helper";
+
+export default defineAppConfig({
   pages: [
-    'pages/index/index',
-    'pages/device/index',
-    'pages/me/index',
-    'pages/login/index',
+    "pages/index/index",
+    "pages/password/index",
+    "pages/userInfo/index",
+    "pages/aboutUs/index",
+    "pages/home/index",
+    "pages/list/index",
+    "pages/user/index",
   ],
   window: {
-    backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#fff',
-    navigationBarTitleText: 'WeChat',
-    navigationBarTextStyle: 'black'
+    backgroundTextStyle: "light",
+    navigationBarBackgroundColor: "#fff",
+    navigationBarTitleText: "WeChat",
+    navigationBarTextStyle: "black",
   },
   tabBar: {
-    color: '#4c4c4c',
-    selectedColor: '#6E65FC',
-    backgroundColor: '#fff',
-    borderStyle: 'black',
+    color: "#000000",
+    selectedColor: "#6e65fc",
+    backgroundColor: "#ffffff",
     list: [
       {
-        pagePath: 'pages/index/index',
-        text: '首页',
-        iconPath: 'assets/tabBar/001.png',
-        selectedIconPath: 'assets/tabBar/001_selected.png'
+        pagePath: "pages/home/index",
+        selectedIconPath: "assets/001_selected.png",
+        iconPath: "assets/001.png",
+        text: "首页",
       },
       {
-        pagePath: 'pages/device/index',
-        text: '设备',
-        iconPath: 'assets/tabBar/002.png',
-        selectedIconPath: 'assets/tabBar/002_selected.png'
+        pagePath: "pages/list/index",
+        selectedIconPath: "assets/002_selected.png",
+        iconPath: "assets/002.png",
+        text: "设备",
       },
       {
-        pagePath: 'pages/me/index',
-        text: '我的',
-        iconPath: 'assets/tabBar/003.png',
-        selectedIconPath: 'assets/tabBar/003_selected.png'
+        pagePath: "pages/user/index",
+        selectedIconPath: "assets/003_selected.png",
+        iconPath: "assets/003.png",
+        text: "我的",
       },
     ],
-    position: 'bottom'
-  }
-}
+  },
+  usingComponents: Object.assign(useGlobalIconFont()),
+});

@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./",
-  "projectname": "iot-sharp-wechat",
-  "description": "IoTSharp 小程序",
+  "projectname": "IoTSharp",
+  "description": "",
   "appid": "touristappid",
   "setting": {
     "urlCheck": true,

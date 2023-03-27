@@ -1,0 +1,36 @@
+.userInfoContainer {
+  background: #f7f7fa;
+  padding: 48px;
+  min-height: calc(100vh - 96px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .title {
+    display: block;
+  }
+  .btnContainer {
+    position: absolute;
+    bottom: 40px;
+  }
+  :global {
+    .nut-cell {
+      padding: 20px;
+    }
+    .nut-button--primary {
+      background: #6e65fc !important;
+      padding: 14px 134px;
+      margin: 80px auto 0;
+      box-shadow: 0 2px 17px -3px rgba(83, 71, 255, 0.46);
+      border-radius: 8px;
+      color: #ffffff;
+    }
+    .nut-cell__title {
+      font-size: 14px !important;
+      color: #000000 !important;
+    }
+    .nut-cell-value {
+      font-size: 14px !important;
+      color: #717171 !important;
+    }
+  }
+}

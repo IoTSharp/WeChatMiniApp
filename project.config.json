@@ -1,25 +1,25 @@
 {
   "miniprogramRoot": "dist/",
-  "projectname": "iot-sharp-wechat",
-  "description": "IoTSharp 小程序",
+  "projectname": "IoTSharp",
+  "description": "",
   "appid": "wxd21da5b7dfbf8d56",
   "setting": {
     "urlCheck": true,
     "es6": false,
     "enhance": false,
     "compileHotReLoad": false,
-    "postcss": false,
-    "minified": false,
+    "postcss": true,
+    "minified": true,
+    "ignoreDevUnusedFiles": false,
+    "ignoreUploadUnusedFiles": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    },
-    "minifyWXSS": true,
-    "ignoreUploadUnusedFiles": false
+    }
   },
   "compileType": "miniprogram",
-  "libVersion": "2.25.4",
+  "libVersion": "2.28.1",
   "srcMiniprogramRoot": "dist/",
   "packOptions": {
     "ignore": [],
@@ -29,6 +29,5 @@
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  },
-  "simulatorPluginLibVersion": {}
+  }
 }
