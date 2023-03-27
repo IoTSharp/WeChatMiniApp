@@ -30,7 +30,6 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.7.7",
-    "@easygo-athena/play": "^1.6.0",
     "@nutui/nutui-react-taro": "^1.3.15",
     "@poster-render/taro": "^3.4.1",
     "@poster-render/taro-react": "^3.4.1",
@@ -67,7 +66,6 @@
     "@babel/core": "^7.8.0",
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
-    "@easygo-athena/openapi": "^1.1.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "@tarojs/cli": "3.5.10",
     "@tarojs/plugin-html": "^3.5.10",
