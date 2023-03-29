@@ -29,7 +29,8 @@ const User: FC<IUserProps> = ({}) => {
         <View className={styles.info}>
           <Avatar size="large" icon={userInfo?.avatar} />
           <View className={styles.content}>
-            <View className={styles.name}>{userInfo?.userName}</View>
+            <View className={styles.name}>{userInfo?.name}</View>
+            <View className={styles.email}>{userInfo?.email}</View>
           </View>
         </View>
       </View>

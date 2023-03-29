@@ -10,7 +10,7 @@ export interface IListProps {}
 const List: FC<IListProps> = ({}) => {
   const userInfo = Taro.getStorageSync(USER_INFO);
   const [searchParams] = useState({
-    customerId: userInfo?.personalInfo?.personalId,
+    customerId: userInfo?.customer?.id,
   });
   const pageRef = useRef(null);
   useDidShow(() => {
@@ -32,13 +32,13 @@ const List: FC<IListProps> = ({}) => {
         extraAsyncRequestParams={searchParams}
         asyncRequest={(params) => {
           return getDeviceList({
-            limit: params?.current,
-            offset: 10,
+            customerId: params?.customerId,
+            offset: params?.current - 1,
+            limit: 10,
           })
             .then((res: any) => {
-              console.log(res);
               return {
-                data: res?.records,
+                data: res?.rows,
                 page: {
                   pages: Math.round(res?.total / 10),
                   total: Number(res?.total),
@@ -52,7 +52,7 @@ const List: FC<IListProps> = ({}) => {
         }}
       >
         {(row) =>
-          row.map((item) => <View className={styles.item}>{item}</View>)
+          row.map((item) => <View className={styles.item}>{item?.name}</View>)
         }
       </PageScrollView>
     </View>

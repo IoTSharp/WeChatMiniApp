@@ -10,10 +10,10 @@ export async function signIn(data: object) {
   });
 }
 
-/** 获取用户信息 */
-export async function GetUserInfo(data: object) {
+/** 用户信息 */
+export async function getUserInfo(params?: object) {
   return request("/api/Account/MyInfo", {
     method: "GET",
-    data,
+    params,
   });
 }

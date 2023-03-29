@@ -3,13 +3,13 @@ import { FC, useState } from "react";
 import { Input, Button } from "@nutui/nutui-react-taro";
 import Taro, { showToast } from "@tarojs/taro";
 import { AUTH_TOKEN, USER_INFO } from "@/config/sessionKey";
-import { signIn } from "./api";
+import { signIn, getUserInfo } from "./api";
 import styles from "./index.module.scss";
 
 export interface IAuthorizeProps {}
 const Authorize: FC<IAuthorizeProps> = ({}) => {
   const [userName, setUserName] = useState("iotmaster@iotsharp.net");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("P@ssw0rd");
   const handleLogin = () => {
     if (!userName)
       return showToast({ title: "请输入用户名", icon: "none", duration: 2000 });
@@ -19,8 +19,6 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
       // @ts-ignore
       const {
         code,
-        avatar,
-        userName,
         token: { access_token },
       } = res;
       if (code === 10000) {
@@ -30,12 +28,13 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
             accessToken: access_token,
           },
         });
+        const res: any = (await getUserInfo()) || {};
+        if (res) {
+          console.log(res);
+        }
         await Taro.setStorage({
           key: USER_INFO,
-          data: {
-            avatar,
-            userName,
-          },
+          data: res,
         });
         Taro.switchTab({ url: "/pages/home/index" });
       } else {
