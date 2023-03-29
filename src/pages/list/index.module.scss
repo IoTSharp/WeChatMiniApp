@@ -50,13 +50,18 @@
       }
     }
     .activeStatus {
+      padding: 4px 10px;
+      line-height: 32px;
+      border-radius: 4px;
       font-size: 24px;
     }
     .active {
-      color: #79eb00;
+      border: 2px solid #24ff21;
+      color: #6dd400;
     }
     .noActive {
-      color: #ff5252;
+      border: 2px solid #ff4949;
+      color: #e02020;
     }
   }
 }
