@@ -1,12 +1,25 @@
 import { View } from "@tarojs/components";
-import { FC, useRef } from "react";
+import Taro, { useDidShow } from '@tarojs/taro';
+import { FC, useState, useRef } from "react";
+import {getDeviceList} from "./api";
 import PageScrollView from "@/components/PageScrollView";
 import styles from "./index.module.scss";
-import { pagePublishInfo } from "./api";
+import {USER_INFO} from "@/config/sessionKey";
 
 export interface IListProps {}
 const List: FC<IListProps> = ({}) => {
+  const userInfo = Taro.getStorageSync(USER_INFO);
+  const [searchParams] = useState({
+    customerId: userInfo?.personalInfo?.personalId,
+  });
   const pageRef = useRef(null);
+  useDidShow(() => {
+    // @ts-ignore
+    pageRef?.current?.handleRequest({
+      isReset: true,
+    });
+  });
+
   return (
     <View className={styles.listContainer}>
       <PageScrollView
@@ -16,56 +29,25 @@ const List: FC<IListProps> = ({}) => {
         scrollViewStyle={{
           background: "#F0F1F2",
         }}
+        extraAsyncRequestParams={searchParams}
         asyncRequest={(params) => {
-          return pagePublishInfo({
-            page: params?.current,
-            size: 10,
+          return getDeviceList({
+            limit: params?.current,
+            offset: 10,
           })
             .then((res: any) => {
+              console.log(res);
               return {
                 data: res?.records,
                 page: {
-                  pages: Number(res?.pages),
+                  pages: Math.round(res?.total / 10),
                   total: Number(res?.total),
-                  pageSize: Number(res?.size),
+                  pageSize: 10,
                 },
               };
             })
             .catch((error: any) => {
               console.log(error);
-              return {
-                data: [
-                  {
-                    type: "device",
-                    name: "设备Jzzdhjk2",
-                    label: "AccessToken",
-                    time: "5天前",
-                  },
-                  {
-                    type: "device",
-                    name: "设备Jzzdhjk2",
-                    label: "AccessToken",
-                    time: "5天前",
-                  },
-                  {
-                    type: "device",
-                    name: "设备Jzzdhjk2",
-                    label: "AccessToken",
-                    time: "5天前",
-                  },
-                  {
-                    type: "device",
-                    name: "设备Jzzdhjk2",
-                    label: "AccessToken",
-                    time: "5天前",
-                  },
-                ],
-                page: {
-                  pages: 1,
-                  total: 4,
-                  pageSize: 10,
-                },
-              };
             });
         }}
       >
