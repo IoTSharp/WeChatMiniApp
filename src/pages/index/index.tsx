@@ -9,7 +9,7 @@ import styles from "./index.module.scss";
 export interface IAuthorizeProps {}
 const Authorize: FC<IAuthorizeProps> = ({}) => {
   const [userName, setUserName] = useState("iotmaster@iotsharp.net");
-  const [password, setPassword] = useState("P@ssw0rd");
+  const [password, setPassword] = useState("");
   const handleLogin = () => {
     if (!userName)
       return showToast({ title: "请输入用户名", icon: "none", duration: 2000 });
