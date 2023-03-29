@@ -1,0 +1,54 @@
+.header {
+  padding: 40px;
+  letter-spacing: 1.24px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  .left {
+    display: flex;
+    align-items: center;
+  }
+  .head {
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+    .deviceTypeIcon {
+      width: 56px;
+      height: 50px;
+      margin-bottom: 20px;
+    }
+    .deviceType {
+      font-size: 24px;
+      color: #acacac;
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    .item {
+      width: 100%;
+      font-size: 24px;
+      color: #717171;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .activeStatus {
+    padding: 4px 10px;
+    line-height: 32px;
+    border-radius: 4px;
+    font-size: 24px;
+  }
+  .active {
+    border: 2px solid #24ff21;
+    color: #6dd400;
+  }
+  .noActive {
+    border: 2px solid #ff4949;
+    color: #e02020;
+  }
+}

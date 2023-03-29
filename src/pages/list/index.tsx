@@ -71,7 +71,15 @@ const List: FC<IListProps> = ({}) => {
       >
         {(row) =>
           row.map((item) => (
-            <View className={styles.item} key={item.id}>
+            <View
+              className={styles.item}
+              key={item.id}
+              onClick={() => {
+                Taro.navigateTo({
+                  url: `/pages/detail/index?deviceId=${item?.id}`,
+                });
+              }}
+            >
               <View className={styles.left}>
                 <View className={styles.head}>
                   <Image
