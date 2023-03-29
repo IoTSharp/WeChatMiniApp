@@ -5,6 +5,7 @@ import Taro, { showToast } from "@tarojs/taro";
 import { AUTH_TOKEN, USER_INFO } from "@/config/sessionKey";
 import { signIn, getUserInfo } from "./api";
 import styles from "./index.module.scss";
+import { ossPath } from "@/config/contants";
 
 export interface IAuthorizeProps {}
 const Authorize: FC<IAuthorizeProps> = ({}) => {
@@ -29,9 +30,6 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
           },
         });
         const res: any = (await getUserInfo()) || {};
-        if (res) {
-          console.log(res);
-        }
         await Taro.setStorage({
           key: USER_INFO,
           data: res,
@@ -49,14 +47,8 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
   return (
     <View className={styles.authorizeContainer}>
       <View className={styles.logo}>
-        <Image
-          className={styles.icon}
-          src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/logo-icon.svg"
-        />
-        <Image
-          className={styles.text}
-          src="https://oweqian.oss-cn-hangzhou.aliyuncs.com/miniApp/logo-text.svg"
-        />
+        <Image className={styles.icon} src={`${ossPath}logo-icon.svg`} />
+        <Image className={styles.text} src={`${ossPath}logo-text.svg`} />
       </View>
       <View className={styles.form}>
         <View className={styles.name}>

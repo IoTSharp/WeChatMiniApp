@@ -114,7 +114,6 @@ export const request = (
 
   return new Promise((resolve, reject) => {
     req(_opts).then(async (result) => {
-      console.warn(result);
       const { code, msg, data } = result.data || {};
       //  业务异常
       if (`${code}` !== EXCEPTION_CODE.SUCCESS_CODE) {

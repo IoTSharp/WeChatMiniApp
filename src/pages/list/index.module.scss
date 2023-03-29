@@ -1,9 +1,62 @@
 .listContainer {
   width: 100%;
   min-height: 100vh;
-  background-color: #f7f7fa;
+  background: #ffffff;
+  :global {
+    .nut-searchbar {
+      border-bottom: 1px solid #f5f6f7;
+    }
+    .nut-searchbar__input {
+      background-color: transparent;
+    }
+  }
   .item {
-    background: #FFFFFF;
-
+    padding: 44px;
+    border-bottom: 2px solid #f5f6f7;
+    letter-spacing: 1.24px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .left {
+      display: flex;
+      align-items: center;
+    }
+    .head {
+      display: flex;
+      flex-direction: column;
+      margin-right: 50px;
+      .deviceTypeIcon {
+        width: 56px;
+        height: 50px;
+        margin-bottom: 20px;
+      }
+      .deviceType {
+        font-size: 24px;
+        color: #acacac;
+      }
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      .name {
+        font-size: 28px;
+        color: #000000;
+        margin-bottom: 6px;
+      }
+      .identityType {
+        font-size: 28px;
+        color: #717171;
+      }
+    }
+    .activeStatus {
+      font-size: 24px;
+    }
+    .active {
+      color: #79eb00;
+    }
+    .noActive {
+      color: #ff5252;
+    }
   }
 }
