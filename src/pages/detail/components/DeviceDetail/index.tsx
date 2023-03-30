@@ -27,7 +27,7 @@ const DeviceDetail: FC<IDeviceDetail> = ({
         <View className={styles.head}>
           <Image
             className={styles.deviceTypeIcon}
-            src={`${ossPath}${DeviceTypeIcon[deviceType]}.svg`}
+            src={`${ossPath}/${DeviceTypeIcon[deviceType]}.svg`}
           />
           <View className={styles.deviceType}>
             {DeviceTypeLabel[deviceType]}

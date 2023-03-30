@@ -28,6 +28,7 @@ const defaultExtraOptions = {
   showLoading: false,
   hideErrorToast: false,
   params: undefined,
+  timeout: 2000,
   header: {
     "content-type": headersMap.json,
   },
@@ -37,8 +38,8 @@ type restOptions = Omit<Taro.request.Option, "url" | "data" | "method"> &
   IExtraReqOptions;
 
 export const EXCEPTION_CODE = {
-  SUCCESS_CODE: "10000", // 成功
-  REFRESH_CODE: "10003", // 需要刷新token
+  SUCCESS_CODE: 10000, // 成功
+  REFRESH_CODE: 10003, // 需要刷新token
 };
 
 // loading 计数器
@@ -116,14 +117,14 @@ export const request = (
     req(_opts).then(async (result) => {
       const { code, msg, data } = result.data || {};
       //  业务异常
-      if (`${code}` !== EXCEPTION_CODE.SUCCESS_CODE) {
+      if (code !== EXCEPTION_CODE.SUCCESS_CODE) {
         !hideErrorToast &&
           msg &&
           showToast({ title: msg, icon: "none", duration: 2000 });
         reject(data);
       }
       // 刷新token
-      else if (`${code}` === EXCEPTION_CODE.REFRESH_CODE) {
+      else if (code === EXCEPTION_CODE.REFRESH_CODE) {
         if (!isRefreshing) {
           const { refresh_token = "" } =
             getStorageSync(sessionKey.AUTH_TOKEN) || {};

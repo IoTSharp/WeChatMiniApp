@@ -84,7 +84,7 @@ const List: FC<IListProps> = ({}) => {
                 <View className={styles.head}>
                   <Image
                     className={styles.deviceTypeIcon}
-                    src={`${ossPath}${DeviceTypeIcon[item?.deviceType]}.svg`}
+                    src={`${ossPath}/${DeviceTypeIcon[item?.deviceType]}.svg`}
                   />
                   <View className={styles.deviceType}>
                     {DeviceTypeLabel[item?.deviceType]}

@@ -3,7 +3,7 @@ import host from "@/config/host";
 
 export const MINI_PROGRAM_NAME = "IoTSharp";
 
-export const ossPath = `${host.oss}/miniApp/`;
+export const ossPath = `${host.oss}/miniApp`;
 
 export enum DeviceType {
   Device = "Device",

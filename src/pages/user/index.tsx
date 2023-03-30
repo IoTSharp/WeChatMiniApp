@@ -28,7 +28,7 @@ const User: FC<IUserProps> = ({}) => {
     <View className={styles.userContainer}>
       <View
         className={styles.user}
-        style={{ backgroundImage: `url("${ossPath}profile.png")` }}
+        style={{ backgroundImage: `url("${ossPath}/profile.png")` }}
       >
         <View className={styles.info}>
           <Avatar size="large" icon={userInfo?.avatar} />

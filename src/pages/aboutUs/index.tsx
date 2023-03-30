@@ -9,7 +9,7 @@ const AboutUs: FC<IAboutUsProps> = ({}) => {
   return (
     <View className={styles.aboutUsContainer}>
       <View className={styles.logo}>
-        <Image className={styles.icon} src={`${ossPath}logo-icon.svg`} />
+        <Image className={styles.icon} src={`${ossPath}/logo-icon.svg`} />
       </View>
       <View className={styles.description}>连接物理设备与数字世界</View>
       <View className={styles.version}>IoTSharp V1.0.0</View>

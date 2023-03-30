@@ -47,8 +47,8 @@ const Authorize: FC<IAuthorizeProps> = ({}) => {
   return (
     <View className={styles.authorizeContainer}>
       <View className={styles.logo}>
-        <Image className={styles.icon} src={`${ossPath}logo-icon.svg`} />
-        <Image className={styles.text} src={`${ossPath}logo-text.svg`} />
+        <Image className={styles.icon} src={`${ossPath}/logo-icon.svg`} />
+        <Image className={styles.text} src={`${ossPath}/logo-text.svg`} />
       </View>
       <View className={styles.form}>
         <View className={styles.name}>

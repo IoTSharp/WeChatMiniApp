@@ -61,13 +61,13 @@ const Home: FC<IHomeProps> = ({}) => {
         <>
           <View
             className={styles.banner}
-            style={{ backgroundImage: `url("${ossPath}banner.png")` }}
+            style={{ backgroundImage: `url("${ossPath}/banner.png")` }}
           >
             <View className={styles.logo}>
-              <Image className={styles.icon} src={`${ossPath}logo-icon.svg`} />
+              <Image className={styles.icon} src={`${ossPath}/logo-icon.svg`} />
               <Image
                 className={styles.text}
-                src={`${ossPath}logo-text-light.svg`}
+                src={`${ossPath}/logo-text-light.svg`}
               />
             </View>
             <Row type="flex" justify="space-between" wrap="wrap">
@@ -94,28 +94,28 @@ const Home: FC<IHomeProps> = ({}) => {
               <CellGroup>
                 <Cell
                   iconSlot={
-                    <Image className="nut-icon" src={`${ossPath}things.svg`} />
+                    <Image className="nut-icon" src={`${ossPath}/things.svg`} />
                   }
                   title="告警设备"
                   desc={String(info?.alarmsCount) ?? "0"}
                 />
                 <Cell
                   iconSlot={
-                    <Image className="nut-icon" src={`${ossPath}things.svg`} />
+                    <Image className="nut-icon" src={`${ossPath}/user.svg`} />
                   }
                   title="用户"
                   desc={String(info?.userCount) ?? "0"}
                 />
                 <Cell
                   iconSlot={
-                    <Image className="nut-icon" src={`${ossPath}things.svg`} />
+                    <Image className="nut-icon" src={`${ossPath}/product.svg`} />
                   }
                   title="产品"
                   desc={String(info?.produceCount) ?? "0"}
                 />
                 <Cell
                   iconSlot={
-                    <Image className="nut-icon" src={`${ossPath}things.svg`} />
+                    <Image className="nut-icon" src={`${ossPath}/rule.svg`} />
                   }
                   title="规则"
                   desc={String(info?.rulesCount) ?? "0"}
