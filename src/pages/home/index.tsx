@@ -94,7 +94,7 @@ const Home: FC<IHomeProps> = ({}) => {
               <CellGroup>
                 <Cell
                   iconSlot={
-                    <Image className="nut-icon" src={`${ossPath}/things.svg`} />
+                    <Image className="nut-icon" src={`${ossPath}/warning.svg`} />
                   }
                   title="告警设备"
                   desc={String(info?.alarmsCount) ?? "0"}
