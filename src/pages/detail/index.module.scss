@@ -3,4 +3,32 @@
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  :global {
+    .nut-tabs__titles {
+      background-color: transparent;
+      border-bottom: 1px solid #f5f6f7;
+    }
+    .nut-tabpane {
+      padding: 0;
+    }
+    .nut-tabs__titles-item {
+      font-size: 14px;
+      color: #969799;
+      text-align: center;
+      line-height: 20px;
+    }
+    .nut-tabs__titles-item.active {
+      color: #323233;
+      text-align: center;
+      line-height: 20px;
+    }
+    .nut-tabs__titles-item.active .nut-tabs__titles-item__line {
+      background: #6e65fc;
+      border-radius: 8px;
+    }
+    .nut-tabs__titles-item__smile,
+    .nut-tabs__titles-item__line {
+      bottom: 0;
+    }
+  }
 }
