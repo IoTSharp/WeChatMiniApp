@@ -20,12 +20,12 @@ const DeviceRule: FC<IDeviceRule> = ({ list }) => {
           <View className={styles.left}>
             <View className={styles.name}>{item?.name}</View>
             <View className={styles.type}>
-              {item?.ruleDesc}
+              {formatDate(item?.creatTime!, "YYYY-MM-DD HH:ss")}
             </View>
           </View>
           <View className={styles.content}>
             <View className={styles.value}>
-              {formatDate(item?.creatTime!, "YYYY-MM-DD HH:ss")}
+              {item?.ruleDesc}
             </View>
           </View>
         </View>
