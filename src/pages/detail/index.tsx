@@ -6,7 +6,8 @@ import styles from "./index.module.scss";
 import DeviceDetail from "./components/DeviceDetail";
 import DeviceAttribute, { IAttributeItem } from "./components/DeviceAttribute";
 import DeviceRule, { IRuleItem } from "./components/DeviceRule";
-import { getDeviceAttributes, getDeviceDetail, getDeviceRules } from "./api";
+import DeviceTelemetry, { ITelemetryItem } from "./components/DeviceTelemetry";
+import { getDeviceAttributes, getDeviceDetail, getDeviceRules, getDeviceLatestTelemetry } from "./api";
 import { parseQ } from "@/utils/share";
 
 export interface IAboutUsProps {}
@@ -29,6 +30,7 @@ const Detail: FC<IAboutUsProps> = ({}) => {
   const [tabValue, setTabValue] = useState("attribute");
   const [attributeList, setAttributeList] = useState<IAttributeItem[]>([]);
   const [ruleList, setRuleList] = useState<IRuleItem[]>([]);
+  const [telemetryList, setTelemetryList] = useState<ITelemetryItem[]>([]);
   const fetchDetail = async () => {
     setLoading(true);
     Taro.showLoading({
@@ -61,6 +63,10 @@ const Detail: FC<IAboutUsProps> = ({}) => {
           const rules: any = (await getDeviceRules(deviceId!)) || {};
           setRuleList([...rules]);
           break;
+        case "telemetry" :
+          const telemetry: any = (await getDeviceLatestTelemetry(deviceId!)) || {};
+          setTelemetryList([...telemetry]);
+          break;
       }
     };
     fetchData();
@@ -80,7 +86,7 @@ const Detail: FC<IAboutUsProps> = ({}) => {
             </TabPane>
             <TabPane title="遥测" paneKey="telemetry">
               {" "}
-              Tab 2{" "}
+              <DeviceTelemetry list={telemetryList} />
             </TabPane>
             <TabPane title="告警" paneKey="warning">
               {" "}
