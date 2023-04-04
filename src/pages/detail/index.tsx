@@ -5,7 +5,8 @@ import Taro, { getCurrentInstance, useRouter, useDidShow } from "@tarojs/taro";
 import styles from "./index.module.scss";
 import DeviceDetail from "./components/DeviceDetail";
 import DeviceAttribute, { IAttributeItem } from "./components/DeviceAttribute";
-import { getDeviceAttributes, getDeviceDetail } from "./api";
+import DeviceRule, { IRuleItem } from "./components/DeviceRule";
+import { getDeviceAttributes, getDeviceDetail, getDeviceRules } from "./api";
 import { parseQ } from "@/utils/share";
 
 export interface IAboutUsProps {}
@@ -27,6 +28,7 @@ const Detail: FC<IAboutUsProps> = ({}) => {
   const [loading, setLoading] = useState(true);
   const [tabValue, setTabValue] = useState("attribute");
   const [attributeList, setAttributeList] = useState<IAttributeItem[]>([]);
+  const [ruleList, setRuleList] = useState<IRuleItem[]>([]);
   const fetchDetail = async () => {
     setLoading(true);
     Taro.showLoading({
@@ -52,8 +54,12 @@ const Detail: FC<IAboutUsProps> = ({}) => {
     const fetchData = async () => {
       switch (tabValue) {
         case "attribute":
-          const res: any = (await getDeviceAttributes(deviceId!)) || {};
-          setAttributeList([...res]);
+          const attributes: any = (await getDeviceAttributes(deviceId!)) || {};
+          setAttributeList([...attributes]);
+          break;
+        case "rule":
+          const rules: any = (await getDeviceRules(deviceId!)) || {};
+          setRuleList([...rules]);
           break;
       }
     };
@@ -79,6 +85,10 @@ const Detail: FC<IAboutUsProps> = ({}) => {
             <TabPane title="告警" paneKey="warning">
               {" "}
               Tab 3{" "}
+            </TabPane>
+            <TabPane title="规则" paneKey="rule">
+              {" "}
+              <DeviceRule list={ruleList} />
             </TabPane>
           </Tabs>
         </>
