@@ -1,11 +1,12 @@
 import { View } from "@tarojs/components";
-import { FC, useEffect, useLayoutEffect, useState } from "react";
+import {FC, useEffect, useLayoutEffect, useRef, useState} from "react";
 import { Tabs, TabPane } from "@nutui/nutui-react-taro";
 import Taro, { getCurrentInstance, useRouter, useDidShow } from "@tarojs/taro";
 import styles from "./index.module.scss";
 import DeviceDetail from "./components/DeviceDetail";
 import DeviceAttribute, { IAttributeItem } from "./components/DeviceAttribute";
 import DeviceRule, { IRuleItem } from "./components/DeviceRule";
+import DeviceWarning from "./components/DeviceWarning";
 import DeviceTelemetry, { ITelemetryItem } from "./components/DeviceTelemetry";
 import { getDeviceAttributes, getDeviceDetail, getDeviceRules, getDeviceLatestTelemetry } from "./api";
 import { parseQ } from "@/utils/share";
@@ -31,6 +32,7 @@ const Detail: FC<IAboutUsProps> = ({}) => {
   const [attributeList, setAttributeList] = useState<IAttributeItem[]>([]);
   const [ruleList, setRuleList] = useState<IRuleItem[]>([]);
   const [telemetryList, setTelemetryList] = useState<ITelemetryItem[]>([]);
+  const warningListRef = useRef(null);
   const fetchDetail = async () => {
     setLoading(true);
     Taro.showLoading({
@@ -63,6 +65,10 @@ const Detail: FC<IAboutUsProps> = ({}) => {
           const rules: any = (await getDeviceRules(deviceId!)) || {};
           setRuleList([...rules]);
           break;
+        case "warning":
+          // @ts-ignore
+          warningListRef?.current?.refreshPageData();
+          break;
         case "telemetry" :
           const telemetry: any = (await getDeviceLatestTelemetry(deviceId!)) || {};
           setTelemetryList([...telemetry]);
@@ -90,7 +96,7 @@ const Detail: FC<IAboutUsProps> = ({}) => {
             </TabPane>
             <TabPane title="告警" paneKey="warning">
               {" "}
-              Tab 3{" "}
+              <DeviceWarning deviceType={detail?.deviceType} deviceId={deviceId!} ref={warningListRef}/>
             </TabPane>
             <TabPane title="规则" paneKey="rule">
               {" "}

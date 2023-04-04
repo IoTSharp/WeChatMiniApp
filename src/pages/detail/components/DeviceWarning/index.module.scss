@@ -1,0 +1,43 @@
+.warningListContainer {
+  width: 100%;
+  background: #ffffff;
+  .item {
+    padding: 44px;
+    border-bottom: 2px solid #f5f6f7;
+    letter-spacing: 1.24px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .left {
+      display: flex;
+      flex-direction: column;
+      .name {
+        font-size: 28px;
+        color: #000000;
+        margin-bottom: 6px;
+      }
+      .type {
+        font-size: 24px;
+        color: #a2a2a2;
+      }
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      .value {
+        padding: 4px 10px;
+        line-height: 32px;
+        border-radius: 4px;
+        font-size: 24px;
+        border-width: 2px;
+        border-style: solid;
+      }
+      .time {
+        font-size: 24px;
+        color: #a2a2a2;
+      }
+    }
+  }
+}
