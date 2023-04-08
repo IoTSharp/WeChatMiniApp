@@ -1,5 +1,5 @@
 import { View } from "@tarojs/components";
-import {FC, useEffect, useLayoutEffect, useRef, useState} from "react";
+import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Tabs, TabPane } from "@nutui/nutui-react-taro";
 import Taro, { getCurrentInstance, useRouter, useDidShow } from "@tarojs/taro";
 import styles from "./index.module.scss";
@@ -8,7 +8,12 @@ import DeviceAttribute, { IAttributeItem } from "./components/DeviceAttribute";
 import DeviceRule, { IRuleItem } from "./components/DeviceRule";
 import DeviceWarning from "./components/DeviceWarning";
 import DeviceTelemetry, { ITelemetryItem } from "./components/DeviceTelemetry";
-import { getDeviceAttributes, getDeviceDetail, getDeviceRules, getDeviceLatestTelemetry } from "./api";
+import {
+  getDeviceAttributes,
+  getDeviceDetail,
+  getDeviceRules,
+  getDeviceLatestTelemetry,
+} from "./api";
 import { parseQ } from "@/utils/share";
 
 export interface IAboutUsProps {}
@@ -28,6 +33,7 @@ const Detail: FC<IAboutUsProps> = ({}) => {
     lastActivityDateTime: "",
   });
   const [loading, setLoading] = useState(true);
+  const [panelLoading, setPanelLoading] = useState(true);
   const [tabValue, setTabValue] = useState("attribute");
   const [attributeList, setAttributeList] = useState<IAttributeItem[]>([]);
   const [ruleList, setRuleList] = useState<IRuleItem[]>([]);
@@ -56,6 +62,10 @@ const Detail: FC<IAboutUsProps> = ({}) => {
   }, [detail]);
   useEffect(() => {
     const fetchData = async () => {
+      setPanelLoading(true);
+      Taro.showLoading({
+        title: "加载中",
+      });
       switch (tabValue) {
         case "attribute":
           const attributes: any = (await getDeviceAttributes(deviceId!)) || {};
@@ -69,11 +79,14 @@ const Detail: FC<IAboutUsProps> = ({}) => {
           // @ts-ignore
           warningListRef?.current?.refreshPageData();
           break;
-        case "telemetry" :
-          const telemetry: any = (await getDeviceLatestTelemetry(deviceId!)) || {};
+        case "telemetry":
+          const telemetry: any =
+            (await getDeviceLatestTelemetry(deviceId!)) || {};
           setTelemetryList([...telemetry]);
           break;
       }
+      Taro.hideLoading();
+      setPanelLoading(false);
     };
     fetchData();
   }, [tabValue]);
@@ -88,19 +101,25 @@ const Detail: FC<IAboutUsProps> = ({}) => {
           <DeviceDetail {...detail} />
           <Tabs value={tabValue} onChange={handleTableValueChange}>
             <TabPane title="属性" paneKey="attribute">
-              <DeviceAttribute list={attributeList} />
+              {!panelLoading && <DeviceAttribute list={attributeList} />}
             </TabPane>
             <TabPane title="遥测" paneKey="telemetry">
               {" "}
-              <DeviceTelemetry list={telemetryList} />
+              {!panelLoading && <DeviceTelemetry list={telemetryList} />}
             </TabPane>
             <TabPane title="告警" paneKey="warning">
               {" "}
-              <DeviceWarning deviceType={detail?.deviceType} deviceId={deviceId!} ref={warningListRef}/>
+              {!panelLoading && tabValue === "warning" && (
+                <DeviceWarning
+                  deviceType={detail?.deviceType}
+                  deviceId={deviceId!}
+                  ref={warningListRef}
+                />
+              )}
             </TabPane>
             <TabPane title="规则" paneKey="rule">
               {" "}
-              <DeviceRule list={ruleList} />
+              {!panelLoading && <DeviceRule list={ruleList} />}
             </TabPane>
           </Tabs>
         </>

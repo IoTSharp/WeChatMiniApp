@@ -17,19 +17,41 @@ export interface ICardItem {
 
 const Home: FC<IHomeProps> = ({}) => {
   const [loading, setLoading] = useState(true);
-  const [info, setInfo] = useState<IKanBanData>({});
+  const [info, setInfo] = useState<IKanBanData>({
+    alarmsCount: -1,
+    attributesDataCount: -1,
+    deviceCount: -1,
+    eventCount: -1,
+    onlineDeviceCount: -1,
+    produceCount: -1,
+    rulesCount: -1,
+    userCount: -1,
+  });
   useDidShow(() => {
     fetchData();
   });
-  const fetchData = async () => {
+  const fetchData = () => {
     setLoading(true);
     Taro.showLoading({
       title: "加载中",
     });
-    const res: any = await kanbanData();
-    if (res) {
-      setInfo({ ...res });
-    }
+    kanbanData()
+      .then((res: any) => {
+        setInfo({ ...res });
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfo({
+          alarmsCount: -1,
+          attributesDataCount: -1,
+          deviceCount: -1,
+          eventCount: -1,
+          onlineDeviceCount: -1,
+          produceCount: -1,
+          rulesCount: -1,
+          userCount: -1,
+        });
+      });
     Taro.hideLoading();
     setLoading(false);
   };
@@ -94,7 +116,10 @@ const Home: FC<IHomeProps> = ({}) => {
               <CellGroup>
                 <Cell
                   iconSlot={
-                    <Image className="nut-icon" src={`${ossPath}/warning.svg`} />
+                    <Image
+                      className="nut-icon"
+                      src={`${ossPath}/warning.svg`}
+                    />
                   }
                   title="告警设备"
                   desc={String(info?.alarmsCount) ?? "0"}
@@ -108,7 +133,10 @@ const Home: FC<IHomeProps> = ({}) => {
                 />
                 <Cell
                   iconSlot={
-                    <Image className="nut-icon" src={`${ossPath}/product.svg`} />
+                    <Image
+                      className="nut-icon"
+                      src={`${ossPath}/product.svg`}
+                    />
                   }
                   title="产品"
                   desc={String(info?.produceCount) ?? "0"}

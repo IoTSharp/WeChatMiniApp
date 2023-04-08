@@ -1,6 +1,12 @@
 .deviceTelemetryContainer {
   width: 100%;
   background: #ffffff;
+  .emptyText {
+    padding-top: 374px;
+    text-align: center;
+    color: #999999;
+    font-size: 32px;
+  }
   .item {
     padding: 44px;
     border-bottom: 2px solid #f5f6f7;

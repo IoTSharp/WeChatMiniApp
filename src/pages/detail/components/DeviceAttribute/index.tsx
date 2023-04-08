@@ -17,26 +17,30 @@ export interface IDeviceAttribute {
 const DeviceAttribute: FC<IDeviceAttribute> = ({ list }) => {
   return (
     <View className={styles.deviceAttributeContainer}>
-      {list?.map((item) => (
-        <View className={styles.item} key={item?.deviceId}>
-          <View className={styles.left}>
-            <View className={styles.name}>{item?.keyName}</View>
-            <View className={styles.type}>
-              {item?.dataType} / {item?.dataSide}
+      {list?.length ? (
+        list?.map((item) => (
+          <View className={styles.item} key={item?.deviceId}>
+            <View className={styles.left}>
+              <View className={styles.name}>{item?.keyName}</View>
+              <View className={styles.type}>
+                {item?.dataType} / {item?.dataSide}
+              </View>
+            </View>
+            <View className={styles.content}>
+              <View className={styles.value}>
+                {item?.dataType === "DateTime"
+                  ? formatDate(item?.value!, "YYYY-MM-DD HH:ss")
+                  : item?.value}
+              </View>
+              <View className={styles.time}>
+                {formatDate(item?.dateTime!, "YYYY-MM-DD HH:ss")}
+              </View>
             </View>
           </View>
-          <View className={styles.content}>
-            <View className={styles.value}>
-              {item?.dataType === "DateTime"
-                ? formatDate(item?.value!, "YYYY-MM-DD HH:ss")
-                : item?.value}
-            </View>
-            <View className={styles.time}>
-              {formatDate(item?.dateTime!, "YYYY-MM-DD HH:ss")}
-            </View>
-          </View>
-        </View>
-      ))}
+        ))
+      ) : (
+        <View className={styles.emptyText}>暂无数据</View>
+      )}
     </View>
   );
 };

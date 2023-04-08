@@ -37,8 +37,8 @@ const List: FC<IListProps> = ({}) => {
         ref={pageRef}
         autoReload
         openVirtualList
-        scrollViewStyle={{
-          background: "#F0F1F2",
+        containerStyle={{
+          background: "#ffffff",
         }}
         renderHeader={
           <SearchBar

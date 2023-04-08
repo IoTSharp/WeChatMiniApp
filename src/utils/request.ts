@@ -28,7 +28,7 @@ const defaultExtraOptions = {
   showLoading: false,
   hideErrorToast: false,
   params: undefined,
-  timeout: 2000,
+  timeout: 5000,
   header: {
     "content-type": headersMap.json,
   },
@@ -114,43 +114,47 @@ export const request = (
   const { hideErrorToast } = _opts;
 
   return new Promise((resolve, reject) => {
-    req(_opts).then(async (result) => {
-      const { code, msg, data } = result.data || {};
-      //  业务异常
-      if (code !== EXCEPTION_CODE.SUCCESS_CODE) {
-        !hideErrorToast &&
-          msg &&
-          showToast({ title: msg, icon: "none", duration: 2000 });
-        reject(data);
-      }
-      // 刷新token
-      else if (code === EXCEPTION_CODE.REFRESH_CODE) {
-        if (!isRefreshing) {
-          const { refresh_token = "" } =
-            getStorageSync(sessionKey.AUTH_TOKEN) || {};
-          isRefreshing = true;
-          refreshToken(refresh_token)
-            .then((refreshRes: any) => {
-              setStorageSync(sessionKey.AUTH_TOKEN, refreshRes?.data?.data);
-              requests.forEach((cb: any) => cb());
-              requests = [];
-              return req(_opts);
-            })
-            .finally(() => {
-              isRefreshing = false;
-            });
+    req(_opts)
+      .then(async (result) => {
+        const { code, msg, data } = result.data || {};
+        //  业务异常
+        if (code !== EXCEPTION_CODE.SUCCESS_CODE) {
+          !hideErrorToast &&
+            msg &&
+            showToast({ title: msg, icon: "none", duration: 2000 });
+          reject(data);
         }
-        return new Promise((rev) => {
-          requests.push(function () {
-            rev(req(_opts));
+        // 刷新token
+        else if (code === EXCEPTION_CODE.REFRESH_CODE) {
+          if (!isRefreshing) {
+            const { refresh_token = "" } =
+              getStorageSync(sessionKey.AUTH_TOKEN) || {};
+            isRefreshing = true;
+            refreshToken(refresh_token)
+              .then((refreshRes: any) => {
+                setStorageSync(sessionKey.AUTH_TOKEN, refreshRes?.data?.data);
+                requests.forEach((cb: any) => cb());
+                requests = [];
+                return req(_opts);
+              })
+              .finally(() => {
+                isRefreshing = false;
+              });
+          }
+          return new Promise((rev) => {
+            requests.push(function () {
+              rev(req(_opts));
+            });
           });
-        });
-      }
-      // 接口正常响应
-      else {
-        resolve(data);
-      }
-    });
+        }
+        // 接口正常响应
+        else {
+          resolve(data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 };
 

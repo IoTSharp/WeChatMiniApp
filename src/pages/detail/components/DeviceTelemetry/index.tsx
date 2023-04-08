@@ -15,21 +15,23 @@ export interface IDeviceTelemetry {
 const DeviceTelemetry: FC<IDeviceTelemetry> = ({ list }) => {
   return (
     <View className={styles.deviceTelemetryContainer}>
-      {list?.map((item) => (
-        <View className={styles.item} key={item?.keyName}>
-          <View className={styles.left}>
-            <View className={styles.name}>{item?.keyName}</View>
-            <View className={styles.type}>
-              {formatDate(item?.dateTime!, "YYYY-MM-DD HH:ss")}
+      {list?.length ? (
+        list?.map((item) => (
+          <View className={styles.item} key={item?.keyName}>
+            <View className={styles.left}>
+              <View className={styles.name}>{item?.keyName}</View>
+              <View className={styles.type}>
+                {formatDate(item?.dateTime!, "YYYY-MM-DD HH:ss")}
+              </View>
+            </View>
+            <View className={styles.content}>
+              <View className={styles.value}>{item?.value}</View>
             </View>
           </View>
-          <View className={styles.content}>
-            <View className={styles.value}>
-              {item?.value}
-            </View>
-          </View>
-        </View>
-      ))}
+        ))
+      ) : (
+        <View className={styles.emptyText}>暂无数据</View>
+      )}
     </View>
   );
 };

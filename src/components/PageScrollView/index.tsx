@@ -1,9 +1,16 @@
-import React, { useRef, useMemo, useState, useImperativeHandle, forwardRef, useEffect } from 'react';
-import { View, ScrollView, Image } from '@tarojs/components';
-import type { ScrollViewProps } from '@tarojs/components';
-import { useUpdateEffect } from 'ahooks';
-import Taro, { getSystemInfoSync, createSelectorQuery } from '@tarojs/taro';
-import './index.scss';
+import React, {
+  useRef,
+  useMemo,
+  useState,
+  useImperativeHandle,
+  forwardRef,
+  useEffect,
+} from "react";
+import { View, ScrollView, Image } from "@tarojs/components";
+import type { ScrollViewProps } from "@tarojs/components";
+import { useUpdateEffect } from "ahooks";
+import Taro, { getSystemInfoSync, createSelectorQuery } from "@tarojs/taro";
+import "./index.scss";
 
 export interface IPageScrollView {
   extraBottomDisTance?: number; // 滚动区域取掉的底部高度
@@ -74,15 +81,15 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
     renderHeader,
     renderStickyHeader,
     renderEmpty,
-    emptyImage = '',
-    emptyText = '暂无数据',
+    emptyImage = "",
+    emptyText = "暂无数据",
     renderFooter,
     openVirtualList = false,
     children,
     renderLoadedStyle,
-    bottomLoadedText = '暂无更多数据',
+    bottomLoadedText = "暂无更多数据",
     renderLoadingStyle,
-    bottomLoadingText = '加载中...',
+    bottomLoadingText = "加载中",
     initialLoad = true,
     extraAsyncRequestParams = {},
     autoReload = true,
@@ -133,7 +140,12 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
 
   const getScrollHeight = useMemo(() => {
     const { windowHeight } = _instance.current;
-    return windowHeight - scrollViewDistanceToTop - scrollViewFooterHeight - extraBottomDisTance;
+    return (
+      windowHeight -
+      scrollViewDistanceToTop -
+      scrollViewFooterHeight -
+      extraBottomDisTance
+    );
   }, [scrollViewDistanceToTop, scrollViewFooterHeight, extraBottomDisTance]);
 
   /**
@@ -164,7 +176,7 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
 
   // 是否开启了虚拟列表
   const isOpenVirtualList = () => {
-    return openVirtualList && typeof children === 'function';
+    return openVirtualList && typeof children === "function";
   };
 
   const fetchDataAndDeal = async (options) => {
@@ -172,7 +184,8 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
 
     const { data = [] } = (await requestWrapper()) || {};
 
-    const _data = _instance.current.pageParams.current === 1 ? data : list.concat(data);
+    const _data =
+      _instance.current.pageParams.current === 1 ? data : list.concat(data);
 
     const _list = formatList(_data.flat(1), segmentSize);
 
@@ -183,7 +196,9 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
 
     if (stayStricky && renderStickyHeader && isCeiled) {
       const topValue = _instance.current.stickyHeaderDistanceToTop + 50;
-      setScrollTopValue(scrollTopValue !== topValue ? topValue : scrollTopValue + 0.01);
+      setScrollTopValue(
+        scrollTopValue !== topValue ? topValue : scrollTopValue + 0.01
+      );
     }
   };
 
@@ -198,21 +213,28 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
     // 设定监听的范围，默认监听上下两个屏幕的高度
     if (!_instance.current.observers[index]) {
       // @ts-ignore
-      _instance.current.observers[index] = Taro.createIntersectionObserver(Taro.getCurrentInstance().page)
+      _instance.current.observers[index] = Taro.createIntersectionObserver(
+        Taro.getCurrentInstance().page
+      )
         .relativeToViewport({
           top: 2 * getScrollHeight,
           bottom: 2 * getScrollHeight,
         })
         .observe(`#${wrapperIdPreFix}${index}`, (res) => {
           // @ts-ignore
-          _instance.current.listWrapperHeights[index] = res?.boundingClientRect?.height;
+          _instance.current.listWrapperHeights[index] =
+            res?.boundingClientRect?.height;
 
           if (res?.intersectionRatio <= 0) {
             // 删除dom结构
-            setNoVisibleList((prevNoVisibleList) => Array.from(new Set([...prevNoVisibleList, index])));
+            setNoVisibleList((prevNoVisibleList) =>
+              Array.from(new Set([...prevNoVisibleList, index]))
+            );
           } else if (res?.intersectionRatio > 0) {
             // 还原
-            setNoVisibleList((prevNoVisibleList) => prevNoVisibleList.filter((i) => i !== index));
+            setNoVisibleList((prevNoVisibleList) =>
+              prevNoVisibleList.filter((i) => i !== index)
+            );
           }
         });
     }
@@ -231,12 +253,19 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
     };
 
     try {
+      Taro.showLoading({
+        title: bottomLoadingText,
+      });
       const response: any = (await asyncRequest(requestParams)) ?? {};
       const { page = {} } = response;
 
-      setIsLoaded(_instance.current.pageParams.current >= (page.pages || Math.ceil(page.total / page.pageSize)));
+      setIsLoaded(
+        _instance.current.pageParams.current >=
+          (page.pages || Math.ceil(page.total / page.pageSize))
+      );
 
       _instance.current.total = page.total;
+      Taro.hideLoading();
       return response;
     } finally {
       setFirstInitialLoaded(true);
@@ -294,7 +323,9 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
   }, [renderEmpty, emptyImage, emptyText]);
 
   const renderContent = (item, index) => {
-    const noVisibleCondition = noVisibleList.includes(index) && !!_instance.current.listWrapperHeights[index];
+    const noVisibleCondition =
+      noVisibleList.includes(index) &&
+      !!_instance.current.listWrapperHeights[index];
 
     return !noVisibleCondition ? (
       children(item, index)
@@ -308,8 +339,8 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
   };
 
   const renderListContent = useMemo(() => {
-    if (typeof children !== 'function') {
-      console.error('children 必须为一个函数');
+    if (typeof children !== "function") {
+      console.error("children 必须为一个函数");
       return;
     }
     return openVirtualList
@@ -327,11 +358,18 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
       if (isLoaded) {
         return renderLoadedStyle || bottomLoadedText;
       }
-      return renderLoadingStyle || bottomLoadingText;
+      return "";
     }
 
-    return '';
-  }, [firstInitialLoaded, renderLoadedStyle, bottomLoadedText, renderLoadingStyle, bottomLoadingText, isLoaded]);
+    return "";
+  }, [
+    firstInitialLoaded,
+    renderLoadedStyle,
+    bottomLoadedText,
+    renderLoadingStyle,
+    bottomLoadingText,
+    isLoaded,
+  ]);
 
   // 获取dom信息
   const getDomInfo = (callback) => {
@@ -376,7 +414,11 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
 
     const flatList = list?.flat?.(1);
 
-    flatList.splice((currentPage - 1) * pageSize, pageSize, ...(res.data ?? []));
+    flatList.splice(
+      (currentPage - 1) * pageSize,
+      pageSize,
+      ...(res.data ?? [])
+    );
 
     setList(formatList(flatList, segmentSize));
   };
@@ -407,7 +449,9 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
 
   return (
     <View
-      className={`athena-page-scroll-view-container ${firstInitialLoaded ? 'athena-calcLayout' : ''}`}
+      className={`athena-page-scroll-view-container ${
+        firstInitialLoaded ? "athena-calcLayout" : ""
+      }`}
       style={containerStyle}
     >
       <ScrollView
@@ -434,7 +478,12 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
           </View>
 
           {/* 吸顶区域 */}
-          <View className={`athena-sticky-header ${isCeiled ? 'athena-ceiled' : ''}`} id={stickyHeaderId}>
+          <View
+            className={`athena-sticky-header ${
+              isCeiled ? "athena-ceiled" : ""
+            }`}
+            id={stickyHeaderId}
+          >
             {renderStickyHeader}
           </View>
 
@@ -444,12 +493,14 @@ const PageSrcollView: React.FC<IPageScrollView> = (props, ref) => {
           ) : (
             <View
               style={{
-                height: !!isCeiled ? '100%' : 'auto',
+                height: !!isCeiled ? "100%" : "auto",
               }}
               className="athena-scroll-list-content"
             >
               {renderListContent}
-              <View className="athena-scroll-list-bottom">{renderBottomTxt}</View>
+              <View className="athena-scroll-list-bottom">
+                {renderBottomTxt}
+              </View>
             </View>
           )}
         </View>

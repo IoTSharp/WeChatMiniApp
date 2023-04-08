@@ -1,20 +1,20 @@
 import { View } from "@tarojs/components";
-import {FC, useState, useRef, forwardRef, useImperativeHandle} from "react";
-import { getAlarmList } from '../../api';
+import { FC, useState, useRef, forwardRef, useImperativeHandle } from "react";
+import { getAlarmList } from "../../api";
 import PageScrollView from "@/components/PageScrollView";
 import styles from "./index.module.scss";
-import {formatDate} from "@/utils/share";
-import {alarmStatusTAG} from "@/config/contants";
+import { formatDate } from "@/utils/share";
+import { alarmStatusTAG } from "@/config/contants";
 
 export interface IListProps {
   deviceType: string;
   deviceId: string;
 }
-const WarningList: FC<IListProps> = ({deviceType, deviceId}, ref) => {
+const WarningList: FC<IListProps> = ({ deviceType, deviceId }, ref) => {
   const [searchParams] = useState({
-    originatorType: deviceType === 'device' ? '1' : '2',
-    alarmStatus: '-1',
-    serverity: '-1',
+    originatorType: deviceType === "device" ? "1" : "2",
+    alarmStatus: "-1",
+    serverity: "-1",
     OriginatorId: deviceId,
   });
   const pageRef = useRef(null);
@@ -23,7 +23,7 @@ const WarningList: FC<IListProps> = ({deviceType, deviceId}, ref) => {
     pageRef?.current?.handleRequest({
       isReset: true,
     });
-  }
+  };
   useImperativeHandle(ref, () => ({
     refreshPageData,
   }));
@@ -31,11 +31,11 @@ const WarningList: FC<IListProps> = ({deviceType, deviceId}, ref) => {
     <View className={styles.warningListContainer}>
       <PageScrollView
         ref={pageRef}
-        autoReload
         openVirtualList
-        scrollViewStyle={{
-          background: "#F0F1F2",
+        containerStyle={{
+          background: "#ffffff",
         }}
+        autoReload
         extraAsyncRequestParams={searchParams}
         asyncRequest={(params) => {
           return getAlarmList({
@@ -68,7 +68,13 @@ const WarningList: FC<IListProps> = ({deviceType, deviceId}, ref) => {
                 </View>
               </View>
               <View className={styles.content}>
-                <View className={styles.value} style={{ color: alarmStatusTAG.get(item?.alarmStatus)?.color, borderColor: alarmStatusTAG.get(item?.alarmStatus)?.color }}>
+                <View
+                  className={styles.value}
+                  style={{
+                    color: alarmStatusTAG.get(item?.alarmStatus)?.color,
+                    borderColor: alarmStatusTAG.get(item?.alarmStatus)?.color,
+                  }}
+                >
                   {alarmStatusTAG.get(item?.alarmStatus)?.text}
                 </View>
               </View>

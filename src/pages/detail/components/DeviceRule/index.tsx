@@ -15,21 +15,23 @@ export interface IDeviceRule {
 const DeviceRule: FC<IDeviceRule> = ({ list }) => {
   return (
     <View className={styles.deviceRuleContainer}>
-      {list?.map((item) => (
-        <View className={styles.item} key={item?.ruleId}>
-          <View className={styles.left}>
-            <View className={styles.name}>{item?.name}</View>
-            <View className={styles.type}>
-              {formatDate(item?.creatTime!, "YYYY-MM-DD HH:ss")}
+      {list?.length ? (
+        list?.map((item) => (
+          <View className={styles.item} key={item?.ruleId}>
+            <View className={styles.left}>
+              <View className={styles.name}>{item?.name}</View>
+              <View className={styles.type}>
+                {formatDate(item?.creatTime!, "YYYY-MM-DD HH:ss")}
+              </View>
+            </View>
+            <View className={styles.content}>
+              <View className={styles.value}>{item?.ruleDesc}</View>
             </View>
           </View>
-          <View className={styles.content}>
-            <View className={styles.value}>
-              {item?.ruleDesc}
-            </View>
-          </View>
-        </View>
-      ))}
+        ))
+      ) : (
+        <View className={styles.emptyText}>暂无数据</View>
+      )}
     </View>
   );
 };
